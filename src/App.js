@@ -1,13 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Greeting  from './components/Greetings'
+import { getRandomGreeting } from './actions/greetingActions';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRandomGreeting());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Switch>
-        <Route path="/" component={Greeting} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Greeting />} />
+      </Routes>
     </Router>
   );
 };
